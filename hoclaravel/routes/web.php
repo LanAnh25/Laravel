@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\ProductsController;
 
-use App\Http\Controllers\CategoriesController as CategoriesController;
-use App\Http\Controllers\HomeController as HomeController;
 
 
 /*
@@ -68,34 +70,59 @@ Route::get('/chuyen-muc/{id}', [HomeController::class, 'getCategories']);
     
 
 
-Route::prefix('admin')->group(function (){
-    Route::get('tin-tuc/{id?}/{slug?}.html', function($id=null, $slug=null  ){
-        $conntent = 'Phương thức Get của path / unicode với tham số: ';
-        $conntent.='id = '.$id.'<br/>';
-        $conntent.='slug = '.$slug;
-        return $conntent;
-     })->where('id', '\d+')->where('slug', '.+')->name('admin.tintuc');
+// Route::prefix('admin')->group(function (){
+//     Route::get('tin-tuc/{id?}/{slug?}.html', function($id=null, $slug=null  ){
+//         $conntent = 'Phương thức Get của path / unicode với tham số: ';
+//         $conntent.='id = '.$id.'<br/>';
+//         $conntent.='slug = '.$slug;
+//         return $conntent;
+//      })->where('id', '\d+')->where('slug', '.+')->name('admin.tintuc');
 
-    Route::get('show-form', function(){
-        return view('form');
-    })->name('admin.show-form');
+//     Route::get('show-form', function(){
+//         return view('form');
+//     })->name('admin.show-form');
 
-    Route::prefix('products')->middleware('CheckPermission')->group(function (){
-        Route::get('/', function(){
-            return'Danh sách sản phẩm';
-        });
-        Route::get('add', function(){
-            return 'Thêm sản phẩm';
-        })->name('admin.products.add');
-        Route::get('edit', function(){
-            return 'Sửa sản phẩm';
-        });
-        Route::get('delete', function(){
-            return 'Xóa sản phẩm';
-        });
+//     Route::prefix('products')->middleware('CheckPermission')->group(function (){
+//         Route::get('/', function(){
+//             return'Danh sách sản phẩm';
+//         });
+//         Route::get('add', function(){
+//             return 'Thêm sản phẩm';
+//         })->name('admin.products.add');
+//         Route::get('edit', function(){
+//             return 'Sửa sản phẩm';
+//         });
+//         Route::get('delete', function(){
+//             return 'Xóa sản phẩm';
+//         });
 
-    });
+//     });
+// });
+
+
+//Client route
+Route::prefix('categories')->group(function (){
+    //danh sách chuyên mục
+    Route::get('/', [CategoriesController::class, 'index'])->name('categories.list');
+    //Lấy chi tiết một chuyên mục (Áp dụng show form sửa chuyên mục)
+    Route::get('/edit/{id}', [CategoriesController::class, 'getCategory'])->name('categories.edit');
+
+    //Xử lý update thư mục
+    Route::post('/edit/{id}', [CategoriesController::class, 'updateCategory']);
+
+    //Hiển thị form add dữ liệu
+    Route::get('/add', [CategoriesController::class, 'addCategory'])->name('categories.add');
+    
+    //Xử lý tên chuyên mục
+    Route::post('/add', [CategoriesController::class, 'handleAddCategory']);
+
+    //Xóa chuyên mục
+    Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');
 });
 
-
-
+//Admin Route
+Route::prefix('admin')->group(function(){
+ 
+    Route::resource('products', ProductController::class);
+   
+});

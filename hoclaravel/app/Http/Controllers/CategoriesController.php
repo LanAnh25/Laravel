@@ -13,29 +13,32 @@ class CategoriesController extends Controller
     }
     //Hiển thị danh mục (Phương thức Get)
     public function index(){
-        return 'Danh sách chuyên mục';
+        return view('clients/categories/list');
 
     }
     //Lấy ra một chuyên mục theo id (Phương thức Get)
-    public function getCategories($id){
-        return 'Chi tiết chuyên mục: '.$id;
+    public function getCategory($id){
+        return view('clients/categories/edit');
     }
     //Sửa danh mục (Phương thức Post)
-    public function updateCategories($id){
-        
+    public function updateCategory($id){
+        return 'Submit sửa chuyên mục:  '.$id;
     }
     //Show form thêm dữ liệu (Phương thức Get)
-    public function addCategories(){
-        return 'Form chuyên mục: ';
+    public function addCategory(){
+        return view('clients/categories/add');
+
     }
 
-
     //Thêm dữ liệu vào chuyên mục(Phương thức Post)
-    public function handleCategories(){
+    public function handleAddCategory(){
+     return  redirect(route('categories.add'));
+        //return 'Submit thêm chuyên mục';
 
     }
     //Xóa dữ liệu (Phương thức Delete)
-    public function remoteCategories($id){
+    public function deleteCategory($id){
+        return 'Submit xóa chuyên mục: '.$id;
 
     }
 };
