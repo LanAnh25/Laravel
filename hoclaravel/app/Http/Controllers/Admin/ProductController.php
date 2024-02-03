@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     //
+
+    public function __construct()
+    {
+        //echo 'Product khởi động';
+        //Sử dụng session để check login
+    }
     public function index(){
         return 'Danh sách sản phẩm';
     }

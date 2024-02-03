@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\DashboardController;
+
 
 
 
@@ -101,6 +103,10 @@ Route::get('/chuyen-muc/{id}', [HomeController::class, 'getCategories']);
 
 
 //Client route
+Route::get('/', function(){
+    return '<h1 style="text-align: center;">TRANG CHỦ UNICODE</h1>';
+})->name('home');
+
 Route::prefix('categories')->group(function (){
     //danh sách chuyên mục
     Route::get('/', [CategoriesController::class, 'index'])->name('categories.list');
@@ -121,8 +127,8 @@ Route::prefix('categories')->group(function (){
 });
 
 //Admin Route
-Route::prefix('admin')->group(function(){
- 
-    Route::resource('products', ProductController::class);
+Route::middleware('auth.admin')->prefix('admin')->group(function(){
+    Route::get('/', [DashboardController::class, 'index']);
+    Route::resource('products', ProductController::class)->middleware('auth.admin.product');
    
 });

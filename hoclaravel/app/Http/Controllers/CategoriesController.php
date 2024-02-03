@@ -27,7 +27,6 @@ class CategoriesController extends Controller
     //Show form thêm dữ liệu (Phương thức Get)
     public function addCategory(){
         return view('clients/categories/add');
-
     }
 
     //Thêm dữ liệu vào chuyên mục(Phương thức Post)
@@ -39,6 +38,5 @@ class CategoriesController extends Controller
     //Xóa dữ liệu (Phương thức Delete)
     public function deleteCategory($id){
         return 'Submit xóa chuyên mục: '.$id;
-
     }
 };
