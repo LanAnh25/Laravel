@@ -1,11 +1,2 @@
 <h1 style="text-align: center;">Học Laravel tại Unicode</h1>
-<?php 
-if(env('APP_ENV')=='production'){
-    //Call api live
-    echo 'Call api live';
-}else {
-    //Call api sandbox
-    echo 'Call api sandbox';
-}
-
-?>
+<a href="<?php echo route('admin.tintuc', ['id'=>1, 'slug'=>'tin-tuc-the-gioi']); ?>">Xem tin tức</a>
