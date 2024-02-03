@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\DashboardController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -103,9 +104,7 @@ Route::get('/chuyen-muc/{id}', [HomeController::class, 'getCategories']);
 
 
 //Client route
-Route::get('/', function(){
-    return '<h1 style="text-align: center;">TRANG CHỦ UNICODE</h1>';
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('categories')->group(function (){
     //danh sách chuyên mục
@@ -126,6 +125,7 @@ Route::prefix('categories')->group(function (){
     Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');
 });
 
+Route::get('san-pham/{id}', [HomeController::class, 'getProductDetail']);
 //Admin Route
 Route::middleware('auth.admin')->prefix('admin')->group(function(){
     Route::get('/', [DashboardController::class, 'index']);
