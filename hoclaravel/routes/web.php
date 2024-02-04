@@ -67,9 +67,9 @@ use App\Http\Controllers\Admin\DashboardController;
 // Route::view('show-form', 'form');
 
 
-Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
-Route::get('/tin-tuc', 'HomeController@getNews')->name('news');
-Route::get('/chuyen-muc/{id}', [HomeController::class, 'getCategories']);
+// Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
+// Route::get('/tin-tuc', 'HomeController@getNews')->name('news');
+// Route::get('/chuyen-muc/{id}', [HomeController::class, 'getCategories']);
     
 
 
@@ -104,9 +104,9 @@ Route::get('/chuyen-muc/{id}', [HomeController::class, 'getCategories']);
 
 
 //Client route
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth.admin');
 
-Route::prefix('categories')->group(function (){
+Route::middleware('auth.admin')->prefix('categories')->group(function (){
     //danh sách chuyên mục
     Route::get('/', [CategoriesController::class, 'index'])->name('categories.list');
     //Lấy chi tiết một chuyên mục (Áp dụng show form sửa chuyên mục)
@@ -125,7 +125,7 @@ Route::prefix('categories')->group(function (){
     Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');
 });
 
-Route::get('san-pham/{id}', [HomeController::class, 'getProductDetail']);
+// Route::get('san-pham/{id}', [HomeController::class, 'getProductDetail']);
 //Admin Route
 Route::middleware('auth.admin')->prefix('admin')->group(function(){
     Route::get('/', [DashboardController::class, 'index']);
