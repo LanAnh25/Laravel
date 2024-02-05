@@ -104,6 +104,7 @@ use App\Http\Controllers\Admin\DashboardController;
 
 
 //Client route
+
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth.admin');
 
 Route::middleware('auth.admin')->prefix('categories')->group(function (){
@@ -123,6 +124,25 @@ Route::middleware('auth.admin')->prefix('categories')->group(function (){
 
     //Xóa chuyên mục
     Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');
+
+    //Hiển thị file upload
+    Route::get('/upload', [CategoriesController::class, 'getFile']);
+
+    //Xử lý file
+    Route::post('/upload', [CategoriesController::class, 'handleFile'])->name('categories.upload');
+    
+    // Route::post('/upload', function (Request $request) {
+    //     // Kiểm tra xem người dùng có upload file nên không
+    //     if (!$request->hasFile('image')) {
+    //         // Nếu không thì in ra thông báo
+    //         return "Mời chọn file cần upload";
+    //     }
+    //     // Nếu có thì thục hiện lưu trữ file vào public/images
+    //     $image = $request->file('image');
+    //     //$storedPath = $image->move('images', $image->getClientOriginalName());
+    
+    //     return "Lưu trữ thành công";
+    // })->name('categories.upload');
 });
 
 // Route::get('san-pham/{id}', [HomeController::class, 'getProductDetail']);
