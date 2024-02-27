@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public $data = [];
-    public function index(){
 
+    
+    public function index(){
         $this->data['title'] = 'Đào tạo lập trình web';
-       return view('clients.home', $this->data);
+        return view('clients.home', $this->data);
+ 
     }
 
     public function products()  {
