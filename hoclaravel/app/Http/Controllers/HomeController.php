@@ -21,4 +21,15 @@ class HomeController extends Controller
 
         
     }
+    public function getAdd(){
+        $this->data['title'] = 'Thêm Sản phẩm';
+        return view('clients.add',  $this->data);
+    }
+    public function postAdd(Request $request) {
+        dd($request);
+    }
+    public function putAdd(Request $request) {
+        return 'phương thức PUT';
+        dd($request);
+    }
 }
