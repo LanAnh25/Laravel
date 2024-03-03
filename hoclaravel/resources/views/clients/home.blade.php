@@ -22,6 +22,14 @@
 @else
 <p>Môi trường dev</p>
 @endenv
+@php 
+@endphp
+
+<x-alert type="info" :content="$message" data-icon="youtube"/>
+
+
+{{-- <x-forms.button/> --}}
+
 @endsection
 
 @section('css')

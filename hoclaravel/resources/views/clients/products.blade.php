@@ -11,6 +11,7 @@
 
 @section('container')
   <h1>SẢN PHẨM</h1>
+  <x-package-alert></x-package-alert>
   @push('scripts')
   <script>
     console.log('Push lần 2');
