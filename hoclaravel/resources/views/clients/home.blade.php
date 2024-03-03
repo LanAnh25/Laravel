@@ -11,10 +11,17 @@
 
 @section('container')
 <h1>Trang chủ</h1>
-@datatime("2024-02-22 22:22:02")
+
 @include('clients.contents.side')
 @include('clients.contents.about')
-@datatime("2024-02-24 10:22:02")
+
+@env('production')
+<p>Môi trường production</p>
+@elseenv('test')
+<p>Môi trường test</p>
+@else
+<p>Môi trường dev</p>
+@endenv
 @endsection
 
 @section('css')
