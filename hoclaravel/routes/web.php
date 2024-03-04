@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Http\Response;
 
 
 /*
@@ -24,5 +25,16 @@ Route::get('/san-pham',[HomeController::class, 'products'])->name('product');
 Route::get('/them-san-pham', [HomeController::class, 'getAdd']);
 Route::post('/them-san-pham',  [HomeController::class, 'postAdd']);
 Route::put('/them-san-pham',  [HomeController::class, 'putAdd']);
+Route::get('lay-thong-tin', [HomeController::class, 'getArr']);
 
 
+Route::get('demo-reponse', function() {
+    // return view('clients.demo-test');
+   $response = response()
+   ->view('clients.demo-test', [
+    'title' => 'Học HTTP Response'
+    ], 200)
+    ->header('Content-Type', 'application/json')
+    ->header('API-Key', '123456');
+   return $response;
+});
