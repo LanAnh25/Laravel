@@ -28,13 +28,14 @@ Route::put('/them-san-pham',  [HomeController::class, 'putAdd']);
 Route::get('lay-thong-tin', [HomeController::class, 'getArr']);
 
 
-Route::get('demo-reponse', function() {
-    // return view('clients.demo-test');
-   $response = response()
-   ->view('clients.demo-test', [
-    'title' => 'Học HTTP Response'
-    ], 200)
-    ->header('Content-Type', 'application/json')
-    ->header('API-Key', '123456');
-   return $response;
+Route::get('demo-response', function() {
+    return view('clients.demo-test');
+})->name('demo-response');
+
+Route::post('demo-response', function(Request $request){
+    if (!empty($request->username)){
+
+    return back()->withInput()-with('mess','Validate  thành công');
+    }
+    return redirect(route('demo-response'))->with('mess','Validate không thành công');
 });
