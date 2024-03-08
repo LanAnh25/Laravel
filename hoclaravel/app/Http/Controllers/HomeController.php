@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProdcutRequest;
 
 class HomeController extends Controller
 {
@@ -31,11 +32,14 @@ class HomeController extends Controller
         $this->data['errorMessage'] = 'Vui lòng kiểm tra lại dữ liệu';
         return view('clients.add',  $this->data);
     }
-    public function postAdd(Request $request) {
-        $rules =[
-            'product_name' =>'required|min:6',
-            'product_price' =>'required|integer'
-        ];
+    public function postAdd(ProdcutRequest $request) {
+        dd($request);
+
+
+        // $rules =[
+        //     'product_name' =>'required|min:6',
+        //     'product_price' =>'required|integer'
+        // ];
         // $messages = [
         //     'product_name.required' =>'Trường :attribute bắt buộc phải nhập',
         //     'product_name.min' =>'Tên sản phẩm không được nhỏ hơn :min kí tự',
@@ -43,12 +47,12 @@ class HomeController extends Controller
         //     'product_price.min' =>'Giá sản phẩm bắt buộc là số'
         // ];
 
-        $messages = [
-            'required' => 'Trường :attribute bắt buộc phải nhập',
-            'min' => 'Trường :attribute không được nhỏ hơn :min ký tự',
-            'integer' => 'Trường :attribute phải là số'
-        ];
-       $request->validate($rules, $messages);
+    //     $messages = [
+    //         'required' => 'Trường :attribute bắt buộc phải nhập',
+    //         'min' => 'Trường :attribute không được nhỏ hơn :min ký tự',
+    //         'integer' => 'Trường :attribute phải là số'
+    //     ];
+    //    $request->validate($rules, $messages);
 
        //xử lý việc thêm dữ liệu vào database
     }
