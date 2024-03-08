@@ -33,7 +33,7 @@ class HomeController extends Controller
         return view('clients.add',  $this->data);
     }
     public function postAdd(ProdcutRequest $request) {
-        dd($request);
+        dd($request)->all();
 
 
         // $rules =[

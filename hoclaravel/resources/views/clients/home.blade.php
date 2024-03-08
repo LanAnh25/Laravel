@@ -10,6 +10,12 @@
 @endsection
 
 @section('container')
+@if (session('msg'))
+<div class="alert alert-{{session('type')}}">
+    {{session('msg')}}
+</div>
+@endif
+
 <h1>Trang chủ</h1>
 
 @include('clients.contents.side')
