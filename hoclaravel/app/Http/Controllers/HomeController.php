@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProdcutRequest;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -32,26 +33,40 @@ class HomeController extends Controller
         $this->data['errorMessage'] = 'Vui lòng kiểm tra lại dữ liệu';
         return view('clients.add',  $this->data);
     }
-    public function postAdd(ProdcutRequest $request) {
-        dd($request)->all();
-
-
-        // $rules =[
-        //     'product_name' =>'required|min:6',
-        //     'product_price' =>'required|integer'
-        // ];
-        // $messages = [
-        //     'product_name.required' =>'Trường :attribute bắt buộc phải nhập',
+    public function postAdd(Request $request) {
+         $rules =[
+            'product_name' =>'required|min:6',
+            'product_price' =>'required|integer'
+        ];
+             $messages = [
+            'required' => 'Trường :attribute bắt buộc phải nhập',
+            'min' => 'Trường :attribute không được nhỏ hơn :min ký tự',
+            'integer' => 'Trường :attribute phải là số'
+        ];
+        //  $messages = [
+        //     'product_name.required' =>'Tên sản phẩm bắt buộc phải nhập',
         //     'product_name.min' =>'Tên sản phẩm không được nhỏ hơn :min kí tự',
         //     'product_price.required' =>'Giá sản phẩm bắt buộc phải nhập',
         //     'product_price.min' =>'Giá sản phẩm bắt buộc là số'
         // ];
+        $attribute = [
+            'product_name' => 'Tên sản phẩm',
+            'product_price' => 'Giá sản phẩm'
+        ];
 
-    //     $messages = [
-    //         'required' => 'Trường :attribute bắt buộc phải nhập',
-    //         'min' => 'Trường :attribute không được nhỏ hơn :min ký tự',
-    //         'integer' => 'Trường :attribute phải là số'
-    //     ];
+       $validator = Validator::make($request->all(), $rules, $messages, $attribute);
+    //    $$validator->validate();
+       if($validator->fails()){
+        $validator->errors()->add('msg', 'Vui lồng kiểm tra lại dữ liệu');
+        // return 'Validate thất bại';
+       }else {
+        // return 'Validate thành công';
+        return redirect('product')->with('msg', 'Validate thành công');
+       }
+
+       return back()->withErrors($validator );
+       
+   
     //    $request->validate($rules, $messages);
 
        //xử lý việc thêm dữ liệu vào database
