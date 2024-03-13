@@ -35,8 +35,11 @@ class HomeController extends Controller
     }
     public function postAdd(Request $request) {
          $rules =[
-            'product_name' =>['required', 'min:6', new Uppercase],
-            'product_price' =>['required','integer', new Uppercase]
+            'product_name' =>['required', 'min:6', function($attribute, $value, $fall){
+               isUppercase($value, 'Trường :attribute không hợp lệ', $fall);
+
+            }],
+            'product_price' =>['required','integer']
             
             // 'product_price' =>'required|integer'
         ];
@@ -109,4 +112,9 @@ class HomeController extends Controller
 
     }
 }
+// public function isUppercase($value, $messages, $fall){
+//     if( $value!=\mb_strtoupper($value, 'UTF-8')){
+//         $fall($messages);
+//     }
+// }
 }
