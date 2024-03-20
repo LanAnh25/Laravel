@@ -9,9 +9,6 @@
     <link rel="stylesheet" href="{{asset('assets/clients/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/clients/style.css')}}">
 
-    
-
-
     @yield('css')
 
 </head>
@@ -41,9 +38,9 @@
         
         @include('clients.blocks.footers')
     </footer>
-    <script {{asset('assets/clients/js/bootstrap.min.js')}}></script>
-    
-
+    <script src= "{{asset('assets/clients/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/clients/js/custom.js')}}"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     @yield('js')
     @stack('scripts')
 </body>
