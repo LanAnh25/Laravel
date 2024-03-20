@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProdcutRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\Uppercase;
+use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     public $data = [];
@@ -17,7 +18,10 @@ class HomeController extends Controller
 
         $this->data['message']= 'Đăng kí tài khoản thành công';
 
-
+        // $users = DB::select('SELECT * from users WHERE email=:email', [
+        //     'email' => 'haongan.web@gmail.com'
+        // ]);
+        
         return view('clients.home', $this->data);
  
     }
