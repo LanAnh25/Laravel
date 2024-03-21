@@ -38,7 +38,7 @@ class Users extends Model
 
         $lists = DB::table($this->table)
         // ->where('id', 19)
-        ->select('fullname as hoten', 'email','id', 'update_at')
+        ->select('fullname as hoten', 'email','id', 'update_at', 'create_at')
         // ->where('id', 18)
         // ->where(function($query) use ($id){
         //     $query->where('id', '<', $id)->orWhere('id', '>', $id);
@@ -47,11 +47,19 @@ class Users extends Model
         // ->whereBetween('id', [18,20])
         // ->whereNotBetween('id', [18,20])
         // ->whereNotIn('id', [18,20])
-        ->whereNotNull('update_at')
+        // ->whereNotNull('update_at')
+        // ->whereDay('create_at', '18')
+        ->whereColumn('create_at', '>', 'update_at')
 
-           
         // ->toSql();
+        // ->get();
+        //Join bảng
+        $lists = DB::table('users')
+        ->select('users.*', 'groups.name as group_name')
+        ->rightJoin('groups', 'users.group_id', '=', 'groups.id')
         ->get();
+
+
         $sql = DB::getQueryLog();
         dd($lists);
         dd($sql);
