@@ -32,4 +32,18 @@ class Users extends Model
     public function statementUser($sql){
         return DB::statement($sql);
     }
+    public function learnQueryBuilder(){
+        //lay tat ca bang ghi cua table
+        $lists = DB::table($this->table)
+        // ->where('id', 19)
+        ->select('fullname as hoten', 'email','id')
+        ->where('id', 19)
+        ->orWhere('id', 20)
+        ->get();
+        dd($lists);
+        
+        //Lấy 1 bản ghi đầu tiên của table
+        $detail = DB::table($this->table)->first();
+        
+    }
 }
