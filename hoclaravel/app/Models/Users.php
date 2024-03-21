@@ -34,13 +34,27 @@ class Users extends Model
     }
     public function learnQueryBuilder(){
         //lay tat ca bang ghi cua table
+        $id = 20;
+
         $lists = DB::table($this->table)
         // ->where('id', 19)
-        ->select('fullname as hoten', 'email','id')
-        ->where('id', 19)
-        ->orWhere('id', 20)
+        ->select('fullname as hoten', 'email','id', 'update_at')
+        // ->where('id', 18)
+        // ->where(function($query) use ($id){
+        //     $query->where('id', '<', $id)->orWhere('id', '>', $id);
+        // })
+        //->where('fullname', 'like', '%van quan%')
+        // ->whereBetween('id', [18,20])
+        // ->whereNotBetween('id', [18,20])
+        // ->whereNotIn('id', [18,20])
+        ->whereNotNull('update_at')
+
+           
+        // ->toSql();
         ->get();
+        $sql = DB::getQueryLog();
         dd($lists);
+        dd($sql);
         
         //Lấy 1 bản ghi đầu tiên của table
         $detail = DB::table($this->table)->first();
